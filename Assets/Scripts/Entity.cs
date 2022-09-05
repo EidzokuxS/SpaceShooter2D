@@ -1,14 +1,17 @@
 using UnityEngine;
 
-/// <summary>
-/// Basic class for every interactive object on a scene
-/// </summary>
-public abstract class Entity : MonoBehaviour
+namespace SpaceShooter
 {
     /// <summary>
-    /// Object name for a user
+    /// Basic class for every interactive object on a scene
     /// </summary>
-    [SerializeField] private string m_Nickname;
-    public string Nickname => m_Nickname;
+    public abstract class Entity : MonoBehaviour
+    {
+        /// <summary>
+        /// Object name for a user
+        /// </summary>
+        [SerializeField] private string m_Nickname;
+        public string Nickname => m_Nickname;
 
+    }
 }
