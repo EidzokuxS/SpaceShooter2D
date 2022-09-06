@@ -29,7 +29,7 @@ namespace SpaceShooter
         /// <summary>
         /// Max linear speed
         /// </summary>
-        [SerializeField] private float m_MaxLinearvelocity;
+        [SerializeField] private float m_MaxLinearVelocity;
 
         /// <summary>
         /// Max rotation speed degree/sec
@@ -55,6 +55,11 @@ namespace SpaceShooter
             m_Rigid.inertia = 1;
         }
 
+        private void FixedUpdate()
+        {
+            UpdateRigidbody();
+        }
+
         #endregion
 
         #region Public API
@@ -62,12 +67,30 @@ namespace SpaceShooter
         /// <summary>
         /// Linear thrust controller -1.0 to 1.0
         /// </summary>
-        public float ThrustControl => m_Thrust;
+        public float ThrustControl { get; set; }
 
         /// <summary>
         /// Rotation thrust controller -1.0 to 1.0
         /// </summary>
-        public float TorqueControl => m_Mobility;
+        public float TorqueControl { get; set; }
+
+        #endregion
+
+        #region PrivateAPI
+
+        /// <summary>
+        /// Method of applying forces to the ship.
+        /// </summary>
+        private void UpdateRigidbody()
+        {
+            m_Rigid.AddForce(ThrustControl * m_Thrust *  transform.up * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddForce(-m_Rigid.velocity * (m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
+
+            m_Rigid.AddTorque(-m_Rigid.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+        }
 
         #endregion
     }
