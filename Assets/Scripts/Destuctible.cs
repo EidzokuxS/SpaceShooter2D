@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace SpaceShooter
@@ -11,22 +12,26 @@ namespace SpaceShooter
     public class Destuctible : Entity
     {
         #region Properties
+
+        [SerializeField] private UnityEvent _eventOnDeath;
+        public UnityEvent EventOnDeath => _eventOnDeath;
+        
         /// <summary>
         /// Object ignores damage
         /// </summary>
-        [SerializeField] private bool m_Indestructible;
-        public bool IsIndestructible => m_Indestructible;
+        [SerializeField] private bool _indestructible;
+        public bool IsIndestructible => _indestructible;
 
         /// <summary>
         /// Basic value of HP
         /// </summary>
-        [SerializeField] private int m_HitPoints;
+        [SerializeField] private int _hitPoints;
 
         /// <summary>
         /// Current HP
         /// </summary>
-        private int m_currentHitPoints;
-        public int HitPoints => m_currentHitPoints;
+        private int _currentHitPoints;
+        public int HitPoints => _currentHitPoints;
 
         #endregion
 
@@ -34,7 +39,7 @@ namespace SpaceShooter
 
         protected virtual void Start()
         {
-            m_currentHitPoints = m_HitPoints;
+            _currentHitPoints = _hitPoints;
         }
 
         #endregion
@@ -47,11 +52,11 @@ namespace SpaceShooter
         /// <param name="damage">value of damage applying</param>
         public void ApplyDamage(int damage)
         {
-            if (m_Indestructible == true) return;
+            if (_indestructible == true) return;
 
-            m_currentHitPoints -= damage;
+            _currentHitPoints -= damage;
 
-            if (m_currentHitPoints <= 0)
+            if (_currentHitPoints <= 0)
                 OnDestruction();
 
         }
@@ -65,6 +70,7 @@ namespace SpaceShooter
         protected virtual void OnDestruction()
         {
             Destroy(gameObject);
+            _eventOnDeath?.Invoke();
         }
         #endregion
     }

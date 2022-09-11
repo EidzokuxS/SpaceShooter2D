@@ -15,11 +15,12 @@ namespace SpaceShooter
             Mobile
         }
 
-        [SerializeField] private SpaceShip m_TargetShip;
+        [SerializeField] private SpaceShip _targetShip;
+        public void SetTargetShip(SpaceShip ship) => _targetShip = ship;
 
-        [SerializeField] private VirtualJoystick m_MobileJoystick;
+        [SerializeField] private VirtualJoystick _mobileJoystick;
 
-        [SerializeField] private ControlMode m_ControlMode;
+        [SerializeField] private ControlMode _controlMode;
 
         #endregion
 
@@ -37,25 +38,25 @@ namespace SpaceShooter
                 m_MobileJoystick.gameObject.SetActive(false);
             }*/
 
-            if (m_ControlMode == ControlMode.Keyboard)
+            if (_controlMode == ControlMode.Keyboard)
             {
-                m_MobileJoystick.gameObject.SetActive(false);
+                _mobileJoystick.gameObject.SetActive(false);
             }
             else
             {
-                m_MobileJoystick.gameObject.SetActive(true);
+                _mobileJoystick.gameObject.SetActive(true);
             }
 
         }
 
         private void Update()
         {
-            if (m_TargetShip == null) return;
+            if (_targetShip == null) return;
 
-            if (m_ControlMode == ControlMode.Keyboard)
+            if (_controlMode == ControlMode.Keyboard)
                 ControlKeyboard();
 
-            if (m_ControlMode == ControlMode.Mobile)
+            if (_controlMode == ControlMode.Mobile)
                 ControlMobile();
         }
 
@@ -64,9 +65,9 @@ namespace SpaceShooter
         #region Private API
         private void ControlMobile()
         {
-            var dir = m_MobileJoystick.Value;
-            m_TargetShip.ThrustControl = dir.y;
-            m_TargetShip.TorqueControl = -dir.x;
+            var dir = _mobileJoystick.Value;
+            _targetShip.ThrustControl = dir.y;
+            _targetShip.TorqueControl = -dir.x;
         }
 
         private void ControlKeyboard()
@@ -86,8 +87,8 @@ namespace SpaceShooter
             if (Input.GetKey(KeyCode.RightArrow))
                 torque = -1.0f;
 
-            m_TargetShip.ThrustControl = thrust;
-            m_TargetShip.TorqueControl = torque;
+            _targetShip.ThrustControl = thrust;
+            _targetShip.TorqueControl = torque;
         }
         #endregion
 

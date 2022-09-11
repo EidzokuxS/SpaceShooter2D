@@ -6,17 +6,17 @@ namespace SpaceShooter
     {
         #region Properties
 
-        [SerializeField] private Camera m_Camera;
+        [SerializeField] private Camera _camera;
 
-        [SerializeField] private Transform m_Target;
+        [SerializeField] private Transform _target;
 
-        [SerializeField] private float m_InterpolationLinear;
+        [SerializeField] private float _interpolationLinear;
 
-        [SerializeField] private float m_InterpolationAngular;
+        [SerializeField] private float _interpolationAngular;
 
-        [SerializeField] private float m_CameraZOffset;
+        [SerializeField] private float _cameraZOffset;
 
-        [SerializeField] private float m_ForwardOffset;
+        [SerializeField] private float _forwardOffset;
 
         #endregion
 
@@ -24,20 +24,30 @@ namespace SpaceShooter
 
         private void FixedUpdate()
         {
-            if (m_Target == null || m_Camera == null) return;
+            if (_target == null || _camera == null) return;
 
-            Vector2 camPos = m_Camera.transform.position;
-            Vector2 targetpos = m_Target.position + m_Target.transform.up * m_ForwardOffset;
+            Vector2 camPos = _camera.transform.position;
+            Vector2 targetpos = _target.position + _target.transform.up * _forwardOffset;
 
-            Vector2 newCamPos = Vector2.Lerp(camPos, targetpos, m_InterpolationLinear * Time.fixedDeltaTime);
+            Vector2 newCamPos = Vector2.Lerp(camPos, targetpos, _interpolationLinear * Time.fixedDeltaTime);
 
-            m_Camera.transform.position = new Vector3(newCamPos.x, newCamPos.y, m_CameraZOffset);
+            _camera.transform.position = new Vector3(newCamPos.x, newCamPos.y, _cameraZOffset);
 
-            if (m_InterpolationAngular > 0)
+            if (_interpolationAngular > 0)
             {
-                m_Camera.transform.rotation = Quaternion.Slerp(m_Camera.transform.rotation,
-                                                               m_Target.rotation, m_InterpolationAngular * Time.deltaTime);
+                _camera.transform.rotation = Quaternion.Slerp(_camera.transform.rotation,
+                                                               _target.rotation, _interpolationAngular * Time.deltaTime);
             }
+        }
+
+        #endregion
+
+        #region Public API
+
+
+        public void SetTarget(Transform newTarget)
+        {
+            _target = newTarget;
         }
 
         #endregion
