@@ -15,12 +15,15 @@ namespace SpaceShooter
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private MovementController _movementController;
 
+        private int _currentLives;
+
         #endregion
 
         #region Unity Events
 
         private void Start()
         {
+            _currentLives = _livesAmount;
             _ship.EventOnDeath.AddListener(OnShipDestruction);
         }
 
@@ -30,10 +33,11 @@ namespace SpaceShooter
 
         private void OnShipDestruction()
         {
-            _livesAmount--;
+            _currentLives--;
+            _ship.EventOnDeath.RemoveListener(OnShipDestruction);
 
-            if (_livesAmount > 0)
-                Respawn();
+            if (_currentLives > 0)
+                Invoke(nameof(Respawn), 2);
         }
 
         private void Respawn()
@@ -41,6 +45,7 @@ namespace SpaceShooter
             var newPlayerShip = Instantiate(_playerShipPrefab);
 
             _ship = newPlayerShip.GetComponent<SpaceShip>();
+            _ship.EventOnDeath.AddListener(OnShipDestruction);
 
             _cameraController.SetTarget(_ship.transform);
             _movementController.SetTargetShip(_ship);

@@ -9,7 +9,7 @@ namespace SpaceShooter
     /// <summary>
     /// Destructible object. Object that can have hitpoints.
     /// </summary>
-    public class Destuctible : Entity
+    public class Destructible : Entity
     {
         #region Properties
 

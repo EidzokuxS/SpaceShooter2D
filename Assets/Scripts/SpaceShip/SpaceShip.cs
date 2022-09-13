@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SpaceShooter
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class SpaceShip : Destuctible
+    public class SpaceShip : Destructible
     {
         #region Properties
 
@@ -92,6 +92,14 @@ namespace SpaceShooter
             m_Rigid.AddTorque(-m_Rigid.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
         }
 
+        protected override void OnDestruction()
+        {
+            var DestructionEffect = GetComponentInChildren<EffectTrigger>();
+
+            DestructionEffect.TriggerEffect(transform.position);
+
+            base.OnDestruction();
+        }
         #endregion
     }
 }

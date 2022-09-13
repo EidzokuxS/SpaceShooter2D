@@ -22,7 +22,7 @@ namespace SpaceShooter
         {
             if (collision.transform.tag == IgnoreTag) return;
 
-            var destructible = transform.root.GetComponent<Destuctible>();
+            var destructible = GetComponentInParent<Destructible>();
 
             if(destructible != null)
             {
