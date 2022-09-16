@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +13,7 @@ namespace SpaceShooter
 
         [SerializeField] private UnityEvent _eventOnDeath;
         public UnityEvent EventOnDeath => _eventOnDeath;
-        
+
         /// <summary>
         /// Object ignores damage
         /// </summary>

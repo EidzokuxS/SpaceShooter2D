@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -41,6 +39,14 @@ namespace SpaceShooter
         /// </summary>
         private Rigidbody2D m_Rigid;
 
+        [Header("Turrets")]
+        [SerializeField] private Turret[] _turrets;
+        [SerializeField] private int _maxEnergy;
+        [SerializeField] private int _maxAmmo;
+        [SerializeField] private int _energyRegenPerSec;
+
+        private float _currentEnergy;
+        private int _currentAmmo;
         #endregion
 
         #region Unity Events
@@ -53,11 +59,15 @@ namespace SpaceShooter
             m_Rigid.mass = m_Mass;
 
             m_Rigid.inertia = 1;
+
+            InitAmmunition();
         }
 
         private void FixedUpdate()
         {
             UpdateRigidbody();
+
+            UpdateEenrgyRegen();
         }
 
         #endregion
@@ -74,18 +84,74 @@ namespace SpaceShooter
         /// </summary>
         public float TorqueControl { get; set; }
 
+        public void Fire(TurretMode mode)
+        {
+            for (int i = 0; i < _turrets.Length; i++)
+            {
+                if (_turrets[i].Mode == mode)
+                    _turrets[i].Fire();
+            }
+        }
+
+
+        public void AddEnergy(int amount)
+        {
+            _currentEnergy = Mathf.Clamp(_currentEnergy + amount, 0, _maxEnergy);
+        }
+
+        public void AddAmmo(int amount)
+        {
+            _currentAmmo += Mathf.Clamp(_currentAmmo + amount, 0, _maxAmmo); ;
+        }
+
+        public bool DrawEnergy(int amount)
+        {
+            if (amount == 0)
+                return true;
+
+            if (_currentEnergy >= amount)
+            {
+                _currentEnergy -= amount;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DrawAmmo(int amount)
+        {
+            if (amount == 0)
+                return true;
+
+            if (_currentAmmo >= amount)
+            {
+                _currentAmmo -= amount;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void AssignWeapon(TurretProperties properties)
+        {
+            for (int i = 0; i < _turrets.Length; i++)
+            {
+                _turrets[i].AssignLoadout(properties);
+            }
+        }
+
         #endregion
 
-        #region PrivateAPI
+        #region Private API
 
         /// <summary>
         /// Method of applying forces to the ship.
         /// </summary>
         private void UpdateRigidbody()
         {
-            m_Rigid.AddForce(ThrustControl * m_Thrust *  transform.up * Time.fixedDeltaTime, ForceMode2D.Force);
+            m_Rigid.AddForce(m_Thrust * ThrustControl * Time.fixedDeltaTime * transform.up, ForceMode2D.Force);
 
-            m_Rigid.AddForce(-m_Rigid.velocity * (m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+            m_Rigid.AddForce((m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime * -m_Rigid.velocity, ForceMode2D.Force);
 
             m_Rigid.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
 
@@ -99,6 +165,19 @@ namespace SpaceShooter
             DestructionEffect.TriggerEffect(transform.position);
 
             base.OnDestruction();
+        }
+
+        private void InitAmmunition()
+        {
+            _currentAmmo = _maxAmmo;
+            _currentEnergy = _maxEnergy;
+        }
+
+        private void UpdateEenrgyRegen()
+        {
+            _currentEnergy += (float)_energyRegenPerSec * Time.fixedDeltaTime;
+
+            _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);
         }
         #endregion
     }

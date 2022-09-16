@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceShooter
 {
-    public class Player : MonoBehaviour
+    public class Player : SingletonBase<Player>
     {
         #region Properties
 
         [SerializeField] private int _livesAmount;
         [SerializeField] private SpaceShip _ship;
         [SerializeField] private GameObject _playerShipPrefab;
+        public SpaceShip ActiveShip => _ship;
 
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private MovementController _movementController;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceShooter
@@ -18,7 +16,7 @@ namespace SpaceShooter
             var lvlBoundary = LevelBoundary.Instance;
             var r = lvlBoundary.Radius;
 
-            if(transform.position.magnitude > r)
+            if (transform.position.magnitude > r)
             {
                 if (lvlBoundary.LimitMode == LevelBoundary.Mode.Limit)
                 {

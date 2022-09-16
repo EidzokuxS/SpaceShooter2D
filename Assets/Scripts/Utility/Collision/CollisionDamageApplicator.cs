@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceShooter
@@ -24,7 +22,7 @@ namespace SpaceShooter
 
             var destructible = GetComponentInParent<Destructible>();
 
-            if(destructible != null)
+            if (destructible != null)
             {
                 destructible.ApplyDamage((int)_damageConstant +
                     (int)(_velocityDamageModifier * collision.relativeVelocity.magnitude));
