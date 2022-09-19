@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 4695364997313129496}
   - component: {fileID: 1748188400070215969}
   - component: {fileID: 1748308492276191094}
-  - component: {fileID: 83172547646341177}
+  - component: {fileID: 4541358287447496960}
   m_Layer: 0
   m_Name: Asteroid_001
   m_TagString: Untagged
@@ -125,8 +125,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4695364997313129503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.558385, y: 0.24347182, z: -2.2109823}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9.558385, y: 0.24347182, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4695364999001580612}
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _velocityDamageModifier: 1.5
   _damageConstant: 15
---- !u!114 &83172547646341177
+--- !u!114 &4541358287447496960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,15 +177,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4695364997313129503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da2c93961108beb4bbe8a32be41ad265, type: 3}
+  m_Script: {fileID: 11500000, guid: e14ac08ec27a6444aa4d250eccbd024e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Nickname: Asteroid_001
+  m_Nickname: 
   _eventOnDeath:
     m_PersistentCalls:
       m_Calls: []
   _indestructible: 0
-  _hitPoints: 30
+  _hitPoints: 50
+  size: 0
+  _randomSpeed: 50
 --- !u!1 &4695364999001580635
 GameObject:
   m_ObjectHideFlags: 0

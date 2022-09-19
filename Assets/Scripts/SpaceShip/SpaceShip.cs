@@ -12,32 +12,34 @@ namespace SpaceShooter
         /// <summary>
         /// Mass for automatic setup in rigidbody
         /// </summary>
-        [SerializeField] private float m_Mass;
+        [SerializeField] private float _mass;
 
         /// <summary>
         /// Pushing forward force
         /// </summary>
-        [SerializeField] private float m_Thrust;
+        [SerializeField] private float _thrust;
 
         /// <summary>
         /// Rotation force
         /// </summary>
-        [SerializeField] private float m_Mobility;
+        [SerializeField] private float _mobility;
 
         /// <summary>
         /// Max linear speed
         /// </summary>
-        [SerializeField] private float m_MaxLinearVelocity;
+        [SerializeField] private float _maxLinearVelocity;
+        public float MaxLinearVelocity { get { return _maxLinearVelocity; } set { _maxLinearVelocity = value; } }
 
         /// <summary>
         /// Max rotation speed degree/sec
         /// </summary>
-        [SerializeField] private float m_MaxAngularVelocity;
+        [SerializeField] private float _maxAngularVelocity;
+        public float MaxAngularVelocity { get { return _maxAngularVelocity; } set { _maxAngularVelocity = value; } }
 
         /// <summary>
         /// Saved rigidbody index
         /// </summary>
-        private Rigidbody2D m_Rigid;
+        private Rigidbody2D _rigid;
 
         [Header("Turrets")]
         [SerializeField] private Turret[] _turrets;
@@ -47,6 +49,24 @@ namespace SpaceShooter
 
         private float _currentEnergy;
         private int _currentAmmo;
+
+
+        #region Bonuses
+
+        private float _indestructibleBonusTimer;
+        public float IndestructibleBonusTimer { get { return _indestructibleBonusTimer; } set { _indestructibleBonusTimer = value; } }
+
+        private float _speedUpBonusTimer;
+        public float SpeedUpBonusTimer { get { return _speedUpBonusTimer; } set { _speedUpBonusTimer = value; } }
+
+        public bool IsIndestructibleBonusActive;
+        public bool IsSpeedBonusActive;
+
+        private float _baseLinearVelocity;
+        private float _baseAngularVelocity;
+
+        #endregion
+
         #endregion
 
         #region Unity Events
@@ -55,19 +75,29 @@ namespace SpaceShooter
         {
             base.Start();
 
-            m_Rigid = GetComponent<Rigidbody2D>();
-            m_Rigid.mass = m_Mass;
+            _rigid = GetComponent<Rigidbody2D>();
+            _rigid.mass = _mass;
 
-            m_Rigid.inertia = 1;
+            _rigid.inertia = 1;
 
             InitAmmunition();
+
+            _baseAngularVelocity = _maxAngularVelocity;
+            _baseLinearVelocity = _maxLinearVelocity;
+        }
+
+        private void Update()
+        {
+            EnableIndestructible();
+
+            EnableSpeedUp();
         }
 
         private void FixedUpdate()
         {
             UpdateRigidbody();
 
-            UpdateEenrgyRegen();
+            UpdateEnergyRegen();
         }
 
         #endregion
@@ -149,13 +179,13 @@ namespace SpaceShooter
         /// </summary>
         private void UpdateRigidbody()
         {
-            m_Rigid.AddForce(m_Thrust * ThrustControl * Time.fixedDeltaTime * transform.up, ForceMode2D.Force);
+            _rigid.AddForce(_thrust * ThrustControl * Time.fixedDeltaTime * transform.up, ForceMode2D.Force);
 
-            m_Rigid.AddForce((m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime * -m_Rigid.velocity, ForceMode2D.Force);
+            _rigid.AddForce((_thrust / _maxLinearVelocity) * Time.fixedDeltaTime * -_rigid.velocity, ForceMode2D.Force);
 
-            m_Rigid.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rigid.AddTorque(TorqueControl * _mobility * Time.fixedDeltaTime, ForceMode2D.Force);
 
-            m_Rigid.AddTorque(-m_Rigid.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rigid.AddTorque(-_rigid.angularVelocity * (_mobility / _maxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
         }
 
         protected override void OnDestruction()
@@ -173,12 +203,44 @@ namespace SpaceShooter
             _currentEnergy = _maxEnergy;
         }
 
-        private void UpdateEenrgyRegen()
+        private void UpdateEnergyRegen()
         {
             _currentEnergy += (float)_energyRegenPerSec * Time.fixedDeltaTime;
 
             _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _maxEnergy);
         }
+
+        private void EnableIndestructible()
+        {
+            if (IsIndestructibleBonusActive == true)
+            {
+                IsIndestructible = true;
+
+                _indestructibleBonusTimer -= Time.deltaTime;
+
+                if (_indestructibleBonusTimer <= 0)
+                {
+                    IsIndestructible = false;
+                    IsIndestructibleBonusActive = false;
+                }
+            }
+        }
+        private void EnableSpeedUp()
+        {
+            if (IsSpeedBonusActive == true)
+            {
+                _speedUpBonusTimer -= Time.deltaTime;
+
+                if (_speedUpBonusTimer <= 0)
+                {
+                    _maxAngularVelocity = _baseAngularVelocity;
+                    _maxLinearVelocity = _baseLinearVelocity;
+
+                    IsSpeedBonusActive = false;
+                }
+            }
+        }
+
         #endregion
     }
 }

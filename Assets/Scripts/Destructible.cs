@@ -11,19 +11,19 @@ namespace SpaceShooter
     {
         #region Properties
 
-        [SerializeField] private UnityEvent _eventOnDeath;
+        [SerializeField] protected UnityEvent _eventOnDeath;
         public UnityEvent EventOnDeath => _eventOnDeath;
 
         /// <summary>
         /// Object ignores damage
         /// </summary>
-        [SerializeField] private bool _indestructible;
-        public bool IsIndestructible => _indestructible;
+        [SerializeField] protected bool _indestructible;
+        public bool IsIndestructible { get { return _indestructible; } set { _indestructible = value; } }
 
         /// <summary>
         /// Basic value of HP
         /// </summary>
-        [SerializeField] private int _hitPoints;
+        [SerializeField] protected int _hitPoints;
 
         /// <summary>
         /// Current HP

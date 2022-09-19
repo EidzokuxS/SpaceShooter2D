@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0656bbc40de1ff84cac2586fb74c5856, type: 3}
-  m_Name: secondary_rocket_turret_002
+  m_Name: secondary_rocket_turret_002 1
   m_EditorClassIdentifier: 
   _mode: 1
   _projectilePrefab: {fileID: 1288089456329140820, guid: 3402e8acfe5750b419bbe11cfae9bf33, type: 3}

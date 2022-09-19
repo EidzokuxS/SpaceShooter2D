@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0656bbc40de1ff84cac2586fb74c5856, type: 3}
+  m_Name: secondary_plasma_turret_003
+  m_EditorClassIdentifier: 
+  _mode: 1
+  _projectilePrefab: {fileID: 1288089456329140820, guid: e396827e7eca2e7458a063fb54964d94, type: 3}
+  _fireRate: 2
+  _energyUsage: 0
+  _ammoUsage: 2
+  _launchSFX: {fileID: 0}

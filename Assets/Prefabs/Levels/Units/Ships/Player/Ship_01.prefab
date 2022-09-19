@@ -529,11 +529,11 @@ MonoBehaviour:
       m_Calls: []
   _indestructible: 0
   _hitPoints: 100
-  m_Mass: 1
-  m_Thrust: 2000
-  m_Mobility: 3600
-  m_MaxLinearVelocity: 80
-  m_MaxAngularVelocity: 180
+  _mass: 1
+  _thrust: 2000
+  _mobility: 3600
+  _maxLinearVelocity: 90
+  _maxAngularVelocity: 180
   _turrets:
   - {fileID: 521566874}
   - {fileID: 555949355}
@@ -541,6 +541,8 @@ MonoBehaviour:
   _maxEnergy: 40
   _maxAmmo: 10
   _energyRegenPerSec: 4
+  IsIndestructibleBonusActive: 0
+  IsSpeedBonusActive: 0
 --- !u!114 &644669998
 MonoBehaviour:
   m_ObjectHideFlags: 0

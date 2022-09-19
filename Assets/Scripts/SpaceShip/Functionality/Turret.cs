@@ -44,11 +44,11 @@ namespace SpaceShooter
             if (_weapon.DrawEnergy(_turretProperties.EnergyUsage) == false)
                 return;
 
-            if (_weapon.DrawEnergy(_turretProperties.AmmoUsage) == false)
+            if (_weapon.DrawAmmo(_turretProperties.AmmoUsage) == false)
                 return;
 
 
-            Projectile projectile = Instantiate(_turretProperties.ProjectilePrefab).GetComponent<Projectile>();
+            Projectile projectile = Instantiate(_turretProperties.ProjectilePrefab, transform.parent).GetComponent<Projectile>();
             projectile.transform.position = transform.position;
             projectile.transform.up = transform.up;
 

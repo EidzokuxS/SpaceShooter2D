@@ -5,16 +5,30 @@ namespace SpaceShooter
     public class Projectile : Entity
     {
         #region Properties
+        private enum ProjectileType
+        {
+            Basic,
+            Rocket,
+            Plasma
+        }
 
-        [SerializeField] SelfDestruction _explosionPrefab;
-        [SerializeField] private float speed;
-        [SerializeField] private float lifeTime;
+        [SerializeField] SelfDestruction[] _explosionPrefabs;
+        [SerializeField] private float _speed;
+        [SerializeField] private float _lifeTime;
+        [SerializeField] private ProjectileType _projectileType;
+        [SerializeField] private int _damage;
 
-        [SerializeField] private int damage;
+        [SerializeField] private float _splashRange;
+
+        [SerializeField] private float _searchRange;
         public int Damage { get; set; }
 
-        private Destructible _parent;
 
+        private Destructible _parent;
+        private Destructible _target;
+
+        private RaycastHit2D hit;
+        private Collider2D aimTarget;
 
         #endregion
 
@@ -24,29 +38,74 @@ namespace SpaceShooter
         {
             _parent = transform.GetComponentInParent<Destructible>();
 
-            Destroy(gameObject, lifeTime);
+            transform.parent = null;
+
+            Destroy(gameObject, _lifeTime);
         }
+
 
         private void Update()
         {
-            transform.position += transform.up * speed * Time.deltaTime;
+            aimTarget = Physics2D.OverlapCircle(transform.position, _searchRange);
+            hit = Physics2D.Raycast(transform.position, transform.up, _speed * Time.deltaTime);
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, speed * Time.deltaTime);
+            Debug.Log(aimTarget);
+
+            if (aimTarget != null && _target == null && aimTarget.GetComponent<Destructible>() != _parent)
+            {
+                _target = aimTarget.GetComponentInParent<Destructible>();
+            }
+
+            if (_target == _parent)
+                _target = null;
+
+            if (_target == null)
+            {
+                transform.position += _speed * Time.deltaTime * transform.up;
+            }
+
+            if (_target != null)
+            {
+                TargetLocked();
+            }
 
             if (hit)
             {
+                //_target = null;
+
                 Destructible destructible = hit.collider.transform.parent.GetComponent<Destructible>();
 
                 if (destructible != null && destructible != _parent)
                 {
-                    destructible.ApplyDamage(damage);
+                    if (_projectileType == ProjectileType.Rocket || _projectileType == ProjectileType.Basic)
+                    {
+                        if (_projectileType == ProjectileType.Rocket)
+                        {
+                            Instantiate(_explosionPrefabs[0], transform.position, Quaternion.identity);
+                        }
+                        destructible.ApplyDamage(_damage);
+                    }
+
+                    if (_projectileType == ProjectileType.Plasma && _splashRange > 0)
+                    {
+                        var hitColliders = Physics2D.OverlapCircleAll(transform.position, _splashRange);
+                        foreach (var hitCollider in hitColliders)
+                        {
+                            var destructibleInArea = hitCollider.GetComponentInParent<Destructible>();
+                            if (destructibleInArea != null)
+                            {
+                                destructibleInArea.ApplyDamage(_damage);
+                                Instantiate(_explosionPrefabs[1], transform.position, Quaternion.identity);
+                            }
+                        }
+                    }
                 }
 
                 OnProjectileDestruction(hit.collider, hit.point);
             }
         }
 
-        #endregion
+        #endregion  
 
         #region Private API
 
@@ -55,6 +114,11 @@ namespace SpaceShooter
             Destroy(gameObject);
         }
 
+        private void TargetLocked()
+        {
+            if (_target)
+                transform.position = Vector2.MoveTowards(transform.position, _target.transform.position, _speed * Time.deltaTime);
+        }
         #endregion
     }
 }
