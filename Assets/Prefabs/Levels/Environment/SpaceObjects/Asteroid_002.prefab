@@ -188,6 +188,7 @@ MonoBehaviour:
   _hitPoints: 50
   size: 0
   _randomSpeed: 50
+  _asteroidPrefab: {fileID: 4541358287447496960, guid: 473f52be200bfd6479aaa35a7c67a8d3, type: 3}
 --- !u!1 &4695364999001580635
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +283,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4695364999001580635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
