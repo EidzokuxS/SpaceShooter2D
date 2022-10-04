@@ -46,10 +46,10 @@ namespace SpaceShooter
 
         private void Update()
         {
-            aimTarget = Physics2D.OverlapCircle(transform.position, _searchRange);
-            hit = Physics2D.Raycast(transform.position, transform.up, _speed * Time.deltaTime);
+            if (aimTarget == null)
+                aimTarget = Physics2D.OverlapCircle(transform.position, _searchRange);
 
-            Debug.Log(aimTarget);
+            hit = Physics2D.Raycast(transform.position, transform.up, _speed * Time.deltaTime);
 
             if (aimTarget != null && _target == null && aimTarget.GetComponent<Destructible>() != _parent)
             {
