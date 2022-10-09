@@ -83,6 +83,12 @@ namespace SpaceShooter
                         {
                             Instantiate(_explosionPrefabs[0], transform.position, Quaternion.identity);
                         }
+
+                        if (destructible != Player.Instance.ActiveShip)
+                        {
+                            Player.Instance.ChangeScore(destructible.ScoreValue);
+                        }
+
                         destructible.ApplyDamage(_damage);
                     }
 
@@ -94,6 +100,11 @@ namespace SpaceShooter
                             var destructibleInArea = hitCollider.GetComponentInParent<Destructible>();
                             if (destructibleInArea != null)
                             {
+                                if (destructibleInArea != Player.Instance.ActiveShip)
+                                {
+                                    Player.Instance.ChangeScore(destructibleInArea.ScoreValue);
+                                }
+
                                 destructibleInArea.ApplyDamage(_damage);
                                 Instantiate(_explosionPrefabs[1], transform.position, Quaternion.identity);
                             }

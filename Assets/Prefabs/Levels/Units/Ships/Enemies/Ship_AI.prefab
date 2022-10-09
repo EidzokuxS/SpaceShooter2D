@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &163665309
 Transform:
   m_ObjectHideFlags: 0
@@ -628,6 +628,7 @@ MonoBehaviour:
   _indestructible: 0
   _hitPoints: 100
   _teamID: 1
+  _scoreValue: 10
   _mass: 1
   _thrust: 2000
   _mobility: 3600
@@ -680,13 +681,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263cde1bb54076d4e970f997310ee58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _AIBehaviour: 1
+  _AIBehaviour: 0
   _patrolPoint: {fileID: 0}
-  _amountOfPoints: 0
-  _navigatorLinear: 0.75
-  _navigatorAngular: 0.848
-  _randomSelectMovePointTime: 2
+  _amountOfPoints: 3
+  _navigatorLinear: 0.653
+  _navigatorAngular: 1
+  _randomSelectMovePointTime: 8
   _findNewTargetTime: 2
   _shootDelay: 0.75
-  _precisionCoefficient: 25
-  _evadeRayLenght: 30
+  _precisionCoefficient: 35
+  _evadeRayLenght: 200

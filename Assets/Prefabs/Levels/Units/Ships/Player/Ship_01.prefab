@@ -470,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9194601116689530032
 Transform:
   m_ObjectHideFlags: 0
@@ -529,7 +529,8 @@ MonoBehaviour:
       m_Calls: []
   _indestructible: 0
   _hitPoints: 100
-  _teamID: 0
+  _teamID: 2
+  _scoreValue: 0
   _mass: 1
   _thrust: 2000
   _mobility: 3600

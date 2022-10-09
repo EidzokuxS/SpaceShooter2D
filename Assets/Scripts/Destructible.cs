@@ -37,6 +37,9 @@ namespace SpaceShooter
         [SerializeField] private int _teamID;
         public int TeamID => _teamID;
 
+        [SerializeField] private int _scoreValue;
+        public int ScoreValue => _scoreValue;
+
         private static HashSet<Destructible> _allDestructibles;
 
         public static IReadOnlyCollection<Destructible> AllDestructibles => _allDestructibles;

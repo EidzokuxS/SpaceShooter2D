@@ -10,6 +10,8 @@ namespace SpaceShooter
         [SerializeField] private SpaceShip _ship;
         [SerializeField] private GameObject _playerShipPrefab;
         public SpaceShip ActiveShip => _ship;
+        public int Score { get; private set; }
+        public int KillCount { get; private set; }
 
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private MovementController _movementController;
@@ -51,6 +53,24 @@ namespace SpaceShooter
         }
         #endregion
 
+        #region Public API
+
+        public void AddKill()
+        {
+            KillCount++;
+        }
+
+        public void ChangeScore(int amount)
+        {
+            if (Score + amount < 0)
+            {
+                Score = 0;
+            }
+
+            Score += amount;
+        }
+
+        #endregion
     }
 }
 
