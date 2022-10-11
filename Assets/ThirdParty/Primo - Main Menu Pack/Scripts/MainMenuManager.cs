@@ -21,7 +21,8 @@ public class MainMenuManager : MonoBehaviour
     [Space(10)][SerializeField] string sceneToLoad;
 
     [Header("Sprites")]
-    [Space(10)][SerializeField] Sprite logo;
+    [Space(10)]
+    //[SerializeField] Sprite logo;
     [SerializeField] Sprite background;
     [SerializeField] Sprite buttons;
 
@@ -46,7 +47,7 @@ public class MainMenuManager : MonoBehaviour
     [Space(5)]
     [SerializeField] Sprite social3Icon;
     [SerializeField] string social3Link;
-    List<string> links = new List<string>();
+    List<string> links = new();
 
     [Header("Audio")]
     [SerializeField] AudioClip uiClick;
@@ -88,8 +89,6 @@ public class MainMenuManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioSource audioSource;
 
-    Resolution[] resolutions;
-
     #endregion
 
     void Start()
@@ -115,7 +114,7 @@ public class MainMenuManager : MonoBehaviour
         // Logo
         if (logoImage != null)
         {
-            logoImage.sprite = logo;
+            //logoImage.sprite = logo;
             logoImage.color = mainColor;
             logoImage.SetNativeSize();
         }
@@ -270,51 +269,4 @@ public class MainMenuManager : MonoBehaviour
 
     #endregion
 
-
-    #region Graphics & Resolution Settings
-
-    public void SetQuality(int _qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(_qualityIndex);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
-
-    public void PrepareResolutions()
-    {
-        resolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-
-        int currentResolutionIndex = 0;
-
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-
-            if (!options.Contains(option))
-                options.Add(option);
-
-            if (i == resolutions.Length - 1)
-            {
-                currentResolutionIndex = i;
-            }
-        }
-
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
-    }
-
-    public void SetResolution(int _resolutionIndex)
-    {
-        Resolution resolution = resolutions[_resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
-
-    #endregion
 }

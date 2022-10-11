@@ -8,7 +8,7 @@ namespace SpaceShooter
         bool IsCompleted { get; }
     }
 
-    public class LevelController : MonoBehaviour
+    public class LevelController : SingletonBase<LevelController>
     {
         #region Properties
 
@@ -65,7 +65,7 @@ namespace SpaceShooter
                 _isLevelCompleted = true;
                 _eventLevelCompleted?.Invoke();
 
-                LevelSequenceController.Instance?.FinishCurrentLevel(true);
+                LevelSequenceController.Instance.FinishCurrentLevel(true);
             }
         }
 

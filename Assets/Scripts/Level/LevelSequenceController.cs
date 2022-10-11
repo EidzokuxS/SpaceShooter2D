@@ -8,9 +8,15 @@ namespace SpaceShooter
 
         public static string MainMenuSceneName = "main_menu";
 
+        public static SpaceShip PlayerShip { get; set; }
+
         public Episodes CurrentEpisode { get; private set; }
 
         public int CurrentLevel { get; private set; }
+
+        public bool LastLevelResult { get; private set; }
+
+        public PlayerStatistics LevelStatistics { get; private set; }
 
         #endregion
 
@@ -21,6 +27,8 @@ namespace SpaceShooter
             CurrentLevel = 0;
 
             //reset stats before episode start
+            LevelStatistics = new PlayerStatistics();
+            LevelStatistics.Reset();
 
             SceneManager.LoadScene(e.Levels[CurrentLevel]);
 
@@ -33,6 +41,8 @@ namespace SpaceShooter
 
         public void NextLevel()
         {
+            LevelStatistics.Reset();
+
             CurrentLevel++;
 
             if (CurrentLevel >= CurrentEpisode.Levels.Length)
@@ -47,9 +57,19 @@ namespace SpaceShooter
 
         public void FinishCurrentLevel(bool success)
         {
+            LastLevelResult = success;
+            CalculateLevelStatistic();
+
+            UIResultPanelController.Instance.ShowResults(LevelStatistics, success);
 
         }
 
+        private void CalculateLevelStatistic()
+        {
+            LevelStatistics.Score = Player.Instance.Score;
+            LevelStatistics.KillCount = Player.Instance.KillCount;
+            LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
+        }
         #endregion
     }
 }
