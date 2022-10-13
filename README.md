@@ -17,6 +17,6 @@
 <ul style="list-style-type: circle;">
 <li>Various visual improvements</li>
 <li>Code cleaning</li>
-<li>Level generation and organisation</li>
+<li>Level organisation</li>
 <li>Bug fixes</li>
 </ul>

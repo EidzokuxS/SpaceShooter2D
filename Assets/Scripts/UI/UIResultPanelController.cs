@@ -63,8 +63,6 @@ namespace SpaceShooter
         }
         public void OnMenuButtonPressed()
         {
-            gameObject.SetActive(false);
-
             Time.timeScale = 1f;
 
             LevelSequenceController.Instance.LevelStatistics.Reset();
