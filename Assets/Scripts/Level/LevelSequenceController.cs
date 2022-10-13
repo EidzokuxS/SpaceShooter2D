@@ -27,7 +27,8 @@ namespace SpaceShooter
             CurrentLevel = 0;
 
             //reset stats before episode start
-            LevelStatistics = new PlayerStatistics();
+            LevelStatistics ??= new PlayerStatistics();
+
             LevelStatistics.Reset();
 
             SceneManager.LoadScene(e.Levels[CurrentLevel]);
@@ -66,11 +67,29 @@ namespace SpaceShooter
 
         private void CalculateLevelStatistic()
         {
-            LevelStatistics.Score = Player.Instance.Score;
-            LevelStatistics.KillCount = Player.Instance.KillCount;
-            LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
+            if (LevelController.Instance.LevelTime >= 300)
+            {
+                LevelStatistics.Score = Player.Instance.Score;
+                LevelStatistics.KillCount = Player.Instance.KillCount;
+                LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
+            }
+
+            if (LevelController.Instance.LevelTime >= 150 && LevelController.Instance.LevelTime < 300)
+            {
+                LevelStatistics.Score = Player.Instance.Score * Player.Instance.ScoreModifierFast;
+                LevelStatistics.KillCount = Player.Instance.KillCount;
+                LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
+            }
+
+            if (LevelController.Instance.LevelTime < 150)
+            {
+                LevelStatistics.Score = Player.Instance.Score * Player.Instance.ScoreModifierExtraFast;
+                LevelStatistics.KillCount = Player.Instance.KillCount;
+                LevelStatistics.Time = (int)LevelController.Instance.LevelTime;
+            }
+
+            #endregion
         }
-        #endregion
     }
 }
 

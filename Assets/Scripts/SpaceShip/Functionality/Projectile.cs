@@ -21,8 +21,6 @@ namespace SpaceShooter
         [SerializeField] private float _splashRange;
 
         [SerializeField] private float _searchRange;
-        public int Damage { get; set; }
-
 
         private Destructible _parent;
         private Destructible _target;
@@ -86,10 +84,13 @@ namespace SpaceShooter
 
                         if (destructible != Player.Instance.ActiveShip)
                         {
-                            Player.Instance.ChangeScore(destructible.ScoreValue);
+                            Player.Instance.ChangeScore(destructible.ScoreValue * _damage / 10);
                         }
 
                         destructible.ApplyDamage(_damage);
+
+                        if (destructible.HitPoints <= 0)
+                            Player.Instance.AddKill();
                     }
 
                     if (_projectileType == ProjectileType.Plasma && _splashRange > 0)
@@ -102,11 +103,14 @@ namespace SpaceShooter
                             {
                                 if (destructibleInArea != Player.Instance.ActiveShip)
                                 {
-                                    Player.Instance.ChangeScore(destructibleInArea.ScoreValue);
+                                    Player.Instance.ChangeScore(destructibleInArea.ScoreValue * _damage / 10);
                                 }
 
                                 destructibleInArea.ApplyDamage(_damage);
                                 Instantiate(_explosionPrefabs[1], transform.position, Quaternion.identity);
+
+                                if (destructibleInArea.HitPoints <= 0)
+                                    Player.Instance.AddKill();
                             }
                         }
                     }

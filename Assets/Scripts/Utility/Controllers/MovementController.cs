@@ -22,6 +22,9 @@ namespace SpaceShooter
 
         [SerializeField] private PointerClickHold _mobileFirePrimary;
         [SerializeField] private PointerClickHold _mobileFireSecondary;
+        [SerializeField] private PointerClickHold _mobilePauseButton;
+
+        [SerializeField] private UIPauseMenuPanel _pauseMenuPanel;
 
         #endregion
 
@@ -45,6 +48,7 @@ namespace SpaceShooter
 
                 _mobileFirePrimary.gameObject.SetActive(false);
                 _mobileFireSecondary.gameObject.SetActive(false);
+                _mobilePauseButton.gameObject.SetActive(false);
 
             }
             else
@@ -53,6 +57,8 @@ namespace SpaceShooter
 
                 _mobileFirePrimary.gameObject.SetActive(true);
                 _mobileFireSecondary.gameObject.SetActive(true);
+                _mobilePauseButton.gameObject.SetActive(true);
+
             }
 
         }
@@ -81,6 +87,10 @@ namespace SpaceShooter
                 _targetShip.Fire(TurretMode.Primary);
             if (_mobileFireSecondary.IsHold)
                 _targetShip.Fire(TurretMode.Secondary);
+            if (_mobilePauseButton.IsHold)
+                _pauseMenuPanel.OnPauseButtonPressed();
+
+
         }
 
         private void ControlKeyboard()
@@ -104,6 +114,10 @@ namespace SpaceShooter
                 _targetShip.Fire(TurretMode.Primary);
             if (Input.GetKey(KeyCode.R))
                 _targetShip.Fire(TurretMode.Secondary);
+
+            if (Input.GetKey(KeyCode.Escape))
+                _pauseMenuPanel.OnPauseButtonPressed();
+
 
             _targetShip.ThrustControl = thrust;
             _targetShip.TorqueControl = torque;

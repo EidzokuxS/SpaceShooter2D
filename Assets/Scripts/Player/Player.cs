@@ -8,8 +8,13 @@ namespace SpaceShooter
 
         [SerializeField] private int _livesAmount;
         [SerializeField] private SpaceShip _ship;
-        [SerializeField] private GameObject _playerShipPrefab;
         public SpaceShip ActiveShip => _ship;
+
+        [SerializeField] private int _scoreModifierFast;
+        public int ScoreModifierFast => _scoreModifierFast;
+        [SerializeField] private int _scoreModifierExtraFast;
+        public int ScoreModifierExtraFast => _scoreModifierExtraFast;
+
         public int Score { get; private set; }
         public int KillCount { get; private set; }
 
@@ -32,9 +37,11 @@ namespace SpaceShooter
         }
         private void Start()
         {
-            Respawn();
             _currentLives = _livesAmount;
             _ship.EventOnDeath.AddListener(OnShipDestruction);
+
+            if (_currentLives == _livesAmount)
+                Respawn();
         }
 
         #endregion

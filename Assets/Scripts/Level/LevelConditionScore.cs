@@ -8,7 +8,7 @@ namespace SpaceShooter
 
         [SerializeField] private int _score;
 
-        private bool _IsScoreReached;
+        private bool _isScoreReached;
 
         bool ILevelCondition.IsCompleted
         {
@@ -18,20 +18,12 @@ namespace SpaceShooter
                 {
                     if (Player.Instance.Score >= _score)
                     {
-                        _IsScoreReached = true;
+                        _isScoreReached = true;
                     }
                 }
-                return _IsScoreReached;
+                return _isScoreReached;
             }
         }
-
-        #endregion
-
-        #region Unity Events
-
-        #endregion
-
-        #region Private API
 
         #endregion
     }

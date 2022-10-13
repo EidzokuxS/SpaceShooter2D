@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SpaceShooter
 {
@@ -37,16 +38,41 @@ namespace SpaceShooter
             _resultText.text = success ? "Win" : "Lose";
             _buttonText.text = success ? "Next" : "Restart";
 
-            _killCountText.text = "Kills: " + levelResults.KillCount.ToString();
-            _scoreText.text = "Score: " + levelResults.Score.ToString();
-            _timeText.text = "Time: " + levelResults.Time.ToString();
+            if (levelResults.Time >= 300)
+            {
+                _killCountText.text = "Kills: " + levelResults.KillCount.ToString();
+                _scoreText.text = "Score: " + levelResults.Score.ToString();
+                _timeText.text = "Time: " + levelResults.Time.ToString();
+            }
+            if (levelResults.Time >= 150 && levelResults.Time < 300)
+            {
+                _killCountText.text = "Kills: " + levelResults.KillCount.ToString();
+                _scoreText.text = "Score: " + levelResults.Score.ToString();
+                _timeText.text = "Time: " + levelResults.Time.ToString() + " Score multiplier X2";
+            }
+            if (levelResults.Time < 150)
+            {
+                _killCountText.text = "Kills: " + levelResults.KillCount.ToString();
+                _scoreText.text = "Score: " + levelResults.Score.ToString();
+                _timeText.text = "Time: " + levelResults.Time.ToString() + " Score multiplier X3";
+            }
 
             Time.timeScale = 0f;
 
 
         }
+        public void OnMenuButtonPressed()
+        {
+            gameObject.SetActive(false);
 
-        public void OnButtonNextAction()
+            Time.timeScale = 1f;
+
+            LevelSequenceController.Instance.LevelStatistics.Reset();
+
+            SceneManager.LoadScene(LevelSequenceController.MainMenuSceneName);
+        }
+
+        public void OnNextButtonPressed()
         {
             gameObject.SetActive(false);
 
@@ -58,6 +84,7 @@ namespace SpaceShooter
             }
             else
             {
+                Time.timeScale = 1f;
                 LevelSequenceController.Instance.RestartLevel();
             }
         }
