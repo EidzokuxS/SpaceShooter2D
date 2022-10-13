@@ -57,6 +57,11 @@ namespace SpaceShooter
         {
             _spaceShip = GetComponent<SpaceShip>();
 
+            if (_patrolPoint == null)
+            {
+                _patrolPoint = FindObjectOfType<AIPointPatrol>();
+            }
+
             InitTimers();
 
             if (_AIBehaviour == AIBehaviour.FixedPatrol)
@@ -65,9 +70,11 @@ namespace SpaceShooter
 
         private void Update()
         {
-            UpdateTimers();
-
-            UpdateAI();
+            if (_patrolPoint != null)
+            {
+                UpdateTimers();
+                UpdateAI();
+            }
         }
 
         #endregion

@@ -172,7 +172,9 @@ MonoBehaviour:
       m_Calls: []
   _indestructible: 0
   _hitPoints: 50
-  size: 0
+  _teamID: 0
+  _scoreValue: 0
+  size: 2
   _randomSpeed: 50
   _asteroidPrefab: {fileID: 4541358287447496960, guid: 543bd958c7b24ed4c937aef14f8d88dd, type: 3}
 --- !u!114 &-5334936968810786644

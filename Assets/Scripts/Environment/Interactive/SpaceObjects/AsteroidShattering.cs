@@ -8,9 +8,9 @@ namespace SpaceShooter
 
         public enum Size
         {
-            Big,
+            Small,
             Medium,
-            Small
+            Big
         }
 
         [SerializeField] private Size size;
@@ -25,7 +25,7 @@ namespace SpaceShooter
         {
             SetSize(size);
 
-            Invoke(nameof(EnableCollider), 1);
+            Invoke(nameof(EnableCollider), 0.5f);
 
             _eventOnDeath.AddListener(OnAsteroidDestroyed);
         }

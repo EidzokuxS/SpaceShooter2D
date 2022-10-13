@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043cfd61d38fe754ca89bc0a95268b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Nickname: PlayerSpaceShip
+  m_Nickname: Hammer
   _eventOnDeath:
     m_PersistentCalls:
       m_Calls: []
