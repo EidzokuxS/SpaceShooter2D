@@ -29,36 +29,28 @@ namespace SpaceShooter
         #endregion
 
         #region UnityEvents
+
         private void Start()
         {
-            /*if(Application.isMobilePlatform)
+            if (Application.isMobilePlatform)
             {
-                m_ControlMode = ControlMode.Mobile;
-                m_MobileJoystick.gameObject.SetActive(true);
-            }
-            else
-            {
-                m_ControlMode = ControlMode.Keyboard;
-                m_MobileJoystick.gameObject.SetActive(false);
-            }*/
+                _controlMode = ControlMode.Mobile;
 
-            if (_controlMode == ControlMode.Keyboard)
-            {
-                _mobileJoystick.gameObject.SetActive(false);
-
-                _mobileFirePrimary.gameObject.SetActive(false);
-                _mobileFireSecondary.gameObject.SetActive(false);
-                _mobilePauseButton.gameObject.SetActive(false);
-
-            }
-            else
-            {
                 _mobileJoystick.gameObject.SetActive(true);
 
                 _mobileFirePrimary.gameObject.SetActive(true);
                 _mobileFireSecondary.gameObject.SetActive(true);
                 _mobilePauseButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                _controlMode = ControlMode.Keyboard;
 
+                _mobileJoystick.gameObject.SetActive(false);
+
+                _mobileFirePrimary.gameObject.SetActive(false);
+                _mobileFireSecondary.gameObject.SetActive(false);
+                _mobilePauseButton.gameObject.SetActive(false);
             }
 
         }

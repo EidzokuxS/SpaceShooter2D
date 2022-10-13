@@ -1,7 +1,8 @@
-using UnityEditor;
 #if UNITY_EDITOR
-using UnityEngine;
+using UnityEditor;
 #endif
+using UnityEngine;
+
 
 
 namespace SpaceShooter
@@ -27,7 +28,7 @@ namespace SpaceShooter
 
         #endregion
 
-        #region Private
+        #region Private API
 
 
 #if UNITY_EDITOR
