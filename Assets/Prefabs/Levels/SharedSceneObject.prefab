@@ -32,11 +32,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371494966066607985}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1809, y: 825}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -111, y: -249}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1817310304
@@ -398,11 +398,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1831635980535275365}
-  - {fileID: 371494967463467319}
   - {fileID: 6906132901319351129}
   - {fileID: 6906132902807296907}
   - {fileID: 1817310301}
   - {fileID: 6906132902821608250}
+  - {fileID: 7727257100167898452}
   - {fileID: 4555918899323092045}
   - {fileID: 164990578160548133}
   m_Father: {fileID: 371494966680535357}
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.745
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1493,7 +1493,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371494966066607985}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1582,7 +1582,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371494966066607985}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1671,7 +1671,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 371494966066607985}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2033,11 +2033,19 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 371494966275705505}
+    - target: {fileID: 6826124792823258484, guid: 7bd31165dbd62944db2b2a4a531fbcc4, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826124792823258484, guid: 7bd31165dbd62944db2b2a4a531fbcc4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bd31165dbd62944db2b2a4a531fbcc4, type: 3}
---- !u!4 &371494967463467319 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3503852758382518551, guid: 7bd31165dbd62944db2b2a4a531fbcc4, type: 3}
+--- !u!224 &7727257100167898452 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6826124792823258484, guid: 7bd31165dbd62944db2b2a4a531fbcc4, type: 3}
   m_PrefabInstance: {fileID: 3857332193448228896}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6906132902351856327
